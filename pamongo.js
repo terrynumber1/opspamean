@@ -2,11 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var opspa1Schema = new Schema({
-    pa: { type: String, default: 'default value pa' },
+    // google Mongoose data type
+    pa: { type: Number, default: '' },
     source: { type: String, default: '' },
     client: { type: String, default: '' },
     note: { type: String, default: '' },
-    update: { type: Date, default: '' },
+    update: { type: String, default: '' },
     initial: { type: String, default: '' }
 });
 

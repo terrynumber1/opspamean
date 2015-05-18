@@ -1,24 +1,29 @@
 $(document).ready(function () {
 
-    // DEBUG
-//    window.alert('hello');
-//    getStatus();
-//    setInterval(getStatus, 5000);
-
-//    loadMasterTape();
-//    reloadIframe();
+    $.ajax({
+        type: 'GET',
+        url: 'http://opsvm3.turner.com:3000',
+        dataType: 'html',
+        success: function (html1) {
+            $('#patable').html(html1);
+        }
+    });
 
 }); // $(document).ready( function() ) {}
 
 
 // Functions and Variables =======================================
 
-// setInterval(function () { reloadIframe(); }, 7000 );
-
-
-function reloadIframe() {
-    $('iframe').attr('src',$('iframe').attr('src') );
-}
+setInterval(function () {
+    $.ajax({
+        type: 'GET',
+        url: 'http://opsvm3.turner.com:3000',
+        dataType: 'html',
+        success: function (html1) {
+            $('#patable').html(html1);
+        }
+    })
+}, 2000);
 
 
 function loadMasterTape() {
@@ -39,7 +44,6 @@ function loadMasterTape() {
 
 //    window.alert('sdkfsdfjj');
 }
-
 
 function parse(document) {
     var regList = "";

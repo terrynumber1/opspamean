@@ -1,17 +1,17 @@
 db.pa1.insert({
-    "pa":"1",
-"source":"rx 2",
-"client":"h control",
-"note":"nothing",
-"last update":"10am",
-"initial":"jj"
+    "pa":1,
+    "source":"rx 2",
+    "client":"h control",
+    "note":"nothing",
+    "last update":"10am",
+    "initial":"jj"
 })
 
 db.pa1.insert({
-"pa":"2",
-"source":"rx 43",
-"client":"a control",
-"note":"for mornign show",
-"last update":"9am",
-"initial":"ts"
+    "pa":2,
+    "source":"rx 43",
+    "client":"a control",
+    "note":"for mornign show",
+    "last update":"9am",
+    "initial":"ts"
 })
