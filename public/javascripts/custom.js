@@ -1,30 +1,11 @@
 $(document).ready(function () {
 
-    $.ajax({
-        type: 'GET',
-        url: 'http://opsvm3.turner.com:3000',
-        dataType: 'html',
-        success: function (html1) {
-            $('#patable').html(html1);
-        }
-    });
+
 
 }); // $(document).ready( function() ) {}
 
 
 // Functions and Variables =======================================
-
-setInterval(function () {
-    $.ajax({
-        type: 'GET',
-        url: 'http://opsvm3.turner.com:3000',
-        dataType: 'html',
-        success: function (html1) {
-            $('#patable').html(html1);
-        }
-    })
-}, 2000);
-
 
 function loadMasterTape() {
 
