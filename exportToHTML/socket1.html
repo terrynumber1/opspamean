@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>test.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(98,151,85); font-style: italic; }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(204,120,50); font-weight: bold; }
+.s3 { color: rgb(106,135,89); }
+.s4 { color: rgb(204,120,50); }
+.s5 { color: rgb(128,128,128); }
+.s6 { color: rgb(104,151,187); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+test.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<span class="s0">/** 
+ * Module dependencies. 
+ */</span><span class="s1"> 
+ 
+</span><span class="s2">var </span><span class="s1">express = require(</span><span class="s3">'express'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">routes = require(</span><span class="s3">'./routes'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">user = require(</span><span class="s3">'./routes/user'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">http = require(</span><span class="s3">'http'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">path = require(</span><span class="s3">'path'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+ 
+</span><span class="s2">var </span><span class="s1">mongo = require(</span><span class="s3">'mongodb'</span><span class="s1">).MongoClient</span><span class="s4">;</span><span class="s1"> 
+ 
+</span><span class="s2">var </span><span class="s1">app = express()</span><span class="s4">;</span><span class="s1"> 
+ 
+</span><span class="s5">// all environments</span><span class="s1"> 
+app.set(</span><span class="s3">'port'</span><span class="s4">, </span><span class="s1">process.env.PORT || </span><span class="s6">3000</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+app.set(</span><span class="s3">'views'</span><span class="s4">, </span><span class="s1">path.join(__dirname</span><span class="s4">, </span><span class="s3">'views'</span><span class="s1">))</span><span class="s4">;</span><span class="s1"> 
+app.set(</span><span class="s3">'view engine'</span><span class="s4">, </span><span class="s3">'jade'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+app.use(express.favicon())</span><span class="s4">;</span><span class="s1"> 
+app.use(express.logger(</span><span class="s3">'dev'</span><span class="s1">))</span><span class="s4">;</span><span class="s1"> 
+app.use(express.json())</span><span class="s4">;</span><span class="s1"> 
+app.use(express.urlencoded())</span><span class="s4">;</span><span class="s1"> 
+app.use(express.methodOverride())</span><span class="s4">;</span><span class="s1"> 
+app.use(app.router)</span><span class="s4">;</span><span class="s1"> 
+app.use(require(</span><span class="s3">'stylus'</span><span class="s1">).middleware(path.join(__dirname</span><span class="s4">, </span><span class="s3">'public'</span><span class="s1">)))</span><span class="s4">;</span><span class="s1"> 
+app.use(express.static(path.join(__dirname</span><span class="s4">, </span><span class="s3">'public'</span><span class="s1">)))</span><span class="s4">;</span><span class="s1"> 
+ 
+</span><span class="s5">// development only</span><span class="s1"> 
+</span><span class="s2">if </span><span class="s1">(</span><span class="s3">'development' </span><span class="s1">== app.get(</span><span class="s3">'env'</span><span class="s1">)) { 
+    app.use(express.errorHandler())</span><span class="s4">;</span><span class="s1"> 
+} 
+ 
+app.get(</span><span class="s3">'/'</span><span class="s4">, </span><span class="s1">routes.index)</span><span class="s4">;</span><span class="s1"> 
+app.get(</span><span class="s3">'/users'</span><span class="s4">, </span><span class="s1">user.list)</span><span class="s4">;</span><span class="s1"> 
+ 
+</span><span class="s2">var </span><span class="s1">serve = http.createServer(app)</span><span class="s4">;</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">io = require(</span><span class="s3">'socket.io'</span><span class="s1">)(serve)</span><span class="s4">;</span><span class="s1"> 
+ 
+serve.listen(app.get(</span><span class="s3">'port'</span><span class="s1">)</span><span class="s4">, </span><span class="s2">function </span><span class="s1">() { 
+    console.log(</span><span class="s3">'Express server listening on port ' </span><span class="s1">+ app.get(</span><span class="s3">'port'</span><span class="s1">))</span><span class="s4">;</span><span class="s1"> 
+})</span><span class="s4">;</span><span class="s1"> 
+ 
+io.on(</span><span class="s3">'connection'</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(socket) { 
+    console.log(</span><span class="s3">'a user connected'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+ 
+    mongo.connect(process.env.CUSTOMCONNSTR_MONGOLAB_URI</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(err</span><span class="s4">, </span><span class="s1">db) { 
+        </span><span class="s2">var </span><span class="s1">collection = db.collection(</span><span class="s3">'chat messages'</span><span class="s1">) 
+        </span><span class="s2">var </span><span class="s1">stream = collection.find().sort({ _id : -</span><span class="s6">1 </span><span class="s1">}).limit(</span><span class="s6">10</span><span class="s1">).stream()</span><span class="s4">;</span><span class="s1"> 
+        stream.on(</span><span class="s3">'data'</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(chat) { socket.emit(</span><span class="s3">'chat'</span><span class="s4">, </span><span class="s1">chat)</span><span class="s4">; </span><span class="s1">})</span><span class="s4">;</span><span class="s1"> 
+    })</span><span class="s4">;</span><span class="s1"> 
+ 
+    socket.on(</span><span class="s3">'disconnect'</span><span class="s4">, </span><span class="s2">function </span><span class="s1">() { 
+        console.log(</span><span class="s3">'user disconnected'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+    })</span><span class="s4">;</span><span class="s1"> 
+ 
+    socket.on(</span><span class="s3">'chat'</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(msg) { 
+        mongo.connect(process.env.CUSTOMCONNSTR_MONGOLAB_URI</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(err</span><span class="s4">, </span><span class="s1">db) { 
+            </span><span class="s2">var </span><span class="s1">collection = db.collection(</span><span class="s3">'chat messages'</span><span class="s1">)</span><span class="s4">;</span><span class="s1"> 
+            collection.insert({ content: msg }</span><span class="s4">, </span><span class="s2">function </span><span class="s1">(err</span><span class="s4">, </span><span class="s1">o) { 
+                </span><span class="s2">if </span><span class="s1">(err) { console.warn(err.message)</span><span class="s4">; </span><span class="s1">} 
+                </span><span class="s2">else </span><span class="s1">{ console.log(</span><span class="s3">&quot;chat message inserted into db: &quot; </span><span class="s1">+ msg)</span><span class="s4">; </span><span class="s1">} 
+            })</span><span class="s4">;</span><span class="s1"> 
+        })</span><span class="s4">;</span><span class="s1"> 
+ 
+        socket.broadcast.emit(</span><span class="s3">'chat'</span><span class="s4">, </span><span class="s1">msg)</span><span class="s4">;</span><span class="s1"> 
+    })</span><span class="s4">;</span><span class="s1"> 
+})</span><span class="s4">;</span><span class="s1"> 
+</span></pre>
+</body>
+</html>
