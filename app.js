@@ -8,9 +8,12 @@ var methodOverride = require('method-override');
 /* routes/index.js, routes/users.js, routes/birds.js */
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var birds = require('./routes/birds.js');
+//var birds = require('./routes/birds.js');
 
 var app = express();
+
+var http = require('http');
+var server = http.createServer(app);
 
 // CONNECT TO MongoDB
 var mongoose = require('mongoose');
@@ -57,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/users', users);
 
 /* use birds.js for http://opsvm3.turner.com:3000/birds */
-app.use('/birds', birds);
+//app.use('/birds', birds);
 
 // app.get('/', function (req, res) { res.render('home'); });
 
@@ -236,4 +239,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+//module.exports = app;
+
+server.listen(3000);
